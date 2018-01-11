@@ -1,7 +1,5 @@
 #reference "System.IO.Compression"
-#addin "nuget:?package=Apprenda.Cake&version=0.31.0"
-#addin "nuget:?package=Apprenda.Cake.MSBuild&version=0.7.0"
-#addin "nuget:?package=Cake.ProGet&version=0.3.0"
+#addin "nuget:?package=Cake.Apprenda&version=0.4.1"
 #tool "nuget:?package=xunit.runner.console"
 
 #load "./build/parameters.cake"
@@ -9,15 +7,6 @@
 using System.IO.Compression;
 
 var Parameters = BuildParameters.Load(Context, BuildSystem);
-
-Task("New-Assembly-Info-Version")
-    .WithCriteria(() => Context.HasArgument("NewVersion"))
-    .Does(() => {
-        UpdateAssemblyInfo(
-            "./src/**/AssemblyInfo.cs",
-            AssemblyInfoSettingsProvider.NormalizeAssemblyInfo(Parameters.BuildInfo, Context.Argument<string>("NewVersion"))
-        );
-    });
 
 Task("Clean-NuGet-Packages")    
     .Does(() => {
@@ -49,10 +38,7 @@ Task("Clean-All")
 Task("Restore-Nuget-Packages")    
     .Does(() => {
         Information("Restoring NuGet packages...");
-        NuGetRestore(
-            Parameters.SolutionFile,
-            Parameters.ToNuGetRestoreSettings(true) // always bypass the machine cache
-        );
+        NuGetRestore(Parameters.SolutionFile);
     });
 
 Task("Build")
@@ -92,10 +78,7 @@ Task("Restore-Sample-Nuget-Packages")
         Information("Restoring Sample NuGet packages...");
 		foreach(var sln in Parameters.GetSampleSolutions())
 		{
-			NuGetRestore(
-				sln.FullPath,
-				Parameters.ToNuGetRestoreSettings(true) // always bypass the machine cache
-			);
+			NuGetRestore(sln.FullPath);
 		}
     });
 	
