@@ -103,7 +103,17 @@ Task("Build-Archives")
 	.IsDependentOn("Build-Samples")
     .Does(() => {
         Information("Generating archives using configuration '{0}'...", Parameters.Configuration);
+
+		Information("Creating .archives folder");
+		CreateDirectory(".archives");
         
+		var acsPath = @"C:\Program Files (x86)\Apprenda\Tools\ACS\acs.exe";
+		
+		if (!FileExists(acsPath))
+		{
+			throw new Exception(string.Format("ACS was not found, do you have the Apprenda SDK installed?  Looked for ACS here: {0}", acsPath));
+		}
+		
 		var pluginFolder = "./.plugin";
 		var tempPluginFolder = "./.temp/persistence/custom";
 		
@@ -123,7 +133,7 @@ Task("Build-Archives")
 			//create the baseline archive, this will be configured for custom persistence API use after this
 			Information(string.Format("Creating base image of archive"));
 			Debug(string.Format("Executing: acs {0}", acsArgs));
-			StartProcess(@".\tools\ACS\acs.exe", acsArgs);
+			StartProcess(acsPath, acsArgs);
 			
 			Information(string.Format("Cleaning temp folder"));
 			CleanDirectories(".temp");
