@@ -15,4 +15,4 @@ In this folder you'll find "build.ps1".  The default build will produce the plug
 
 ## Notes
 * See: http://docs.apprenda.com/8-0/data-tier-plugin for additional documentation on this feature
-* Make sure to download the Apprenda SDK for the version of Apprenda you are using. The SDK is available at http://docs.apprenda.com/downloads. You will need the SDK to get access to the latest DLL *Apprenda.API.Persistence.dll* that exposes the Data Tier interfaces for development. 
+* Make sure to download the Apprenda SDK for the version of Apprenda you are using. The SDK is available at http://docs.apprenda.com/downloads. You will need the SDK to get access to the latest *Apprenda.API.Persistence.dll* that exposes the Data Tier interfaces for development. 
