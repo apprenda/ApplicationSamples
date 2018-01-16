@@ -147,7 +147,7 @@ Task("Build-Archives")
 			DeleteFiles(string.Format("{0}/EFPlugin.dll.config", tempPluginFolder));
 			CopyDirectory(string.Format("./src/sample/{0}/ContosoUniversityData/bin", verAlias), tempPluginFolder);
 			
-			AddPluginToArchive(zipPath, pluginFolder);
+			AddPluginToArchive(zipPath, tempPluginFolder);
         }       
     });
 
